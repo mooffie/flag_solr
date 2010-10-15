@@ -1,21 +1,37 @@
 
-OVERVIEW
+Overview
 --------
 
-This module provides Flag integration for the Apache Solr module.
+This module provides Apache Solr integration for the [Flag][1] module.
 
-WHERE
+Requirements
+------------
+
+This module has been developed against the **2.x branch** of Drupal's [Apache
+Solr][2] module. It hasn't been tested, and probably doesn't work, with the 1.x
+branch.
+
+Status
+------
+
+This module has just been started (2010-10-14) so I consider it in **alpha
+stage**. Any reports on its use would be greatly appreciated.
+
+Where
 -----
 
 After enabling this module you'll find new search filters (also known as
 "facets") on the **Site configuration › Apache Solr › Enabled filters** page.
 You'll find one (at least one) facet for every flag defined on your system.
 Enable the ones you want. By default the facets only show flagged items but
-you can configure them (in their block settings) to show also items that are
+you can configure them (in their block settings) to also show items that are
 specifically unflagged.
 
-HOW IT WORKS
+How it works
 ------------
+
+It could be useful for the site administrator to understand how this module
+works.
 
 First, let's look at how Solr sees a document:
 
@@ -53,9 +69,9 @@ multi-valued field is also added to the document:
     </doc>
 
 "im" stands for "integer, multiple". The numbers shown above are the
-UIDs of the users who flagged the item.
+UIDs of all the users who flagged the item.
 
-OBSERVATIONS
+Observations
 ------------
 
 1. You must re-index your whole site content after enabling this module for
@@ -72,3 +88,6 @@ OBSERVATIONS
 3. Changing a flag's machine-name necessitates re-indexing the site's content
    because the flag's machine-name is embedded in the Solr field names.
 
+
+[1]: http://drupal.org/project/flag
+[2]: http://drupal.org/project/apachesolr
