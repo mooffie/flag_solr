@@ -30,6 +30,18 @@ function flag_solr_apachesolr_update_index($document, $node, $namespace) {
 }
 
 /**
+ * Implements hook_flag().
+ *
+ * Whenever a node is flagged (or unflagged) we tell ApacheSolr to queue it for
+ * re-indexing.
+ */
+function flag_solr_flag($action, $flag, $content_id) {
+  if ($flag->content_type == 'node') {
+    apachesolr_mark_node($content_id);
+  }
+}
+
+/**
  * Implements hook_apachesolr_facets().
  */
 function flag_solr_apachesolr_facets() {
