@@ -28,11 +28,9 @@
 abstract class FlagFacet {
 
   var $flag;
-  var $by_self; // @todo: remove; not used.
 
-  function __construct($flag_name, $by_self) {
+  function __construct($flag_name) {
     $this->flag = flag_get_flag($flag_name);
-    $this->by_self = $by_self;
   }
 
   // -----------------------------------------------------------------------
@@ -213,7 +211,7 @@ abstract class FlagFacet {
 class FlagFacetBySelf extends FlagFacet {
 
   function __construct($flag_name) {
-    parent::__construct($flag_name, TRUE);
+    parent::__construct($flag_name);
   }
 
   function get_delta() {
@@ -350,7 +348,7 @@ class FlagFacetBySelf extends FlagFacet {
 class FlagFacetByAnybody extends FlagFacet {
 
   function __construct($flag_name) {
-    parent::__construct($flag_name, FALSE);
+    parent::__construct($flag_name);
   }
 
   function get_delta() {
