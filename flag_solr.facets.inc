@@ -491,9 +491,15 @@ function __doc_to_obj($document) {
 
 function _flag_solr_dsm($obj) {
   if (function_exists('dsm')) {
-    if (get_class($obj) == 'Apache_Solr_Document') {
+    if (is_object($obj) && get_class($obj) == 'Apache_Solr_Document') {
       $obj = __doc_to_obj($obj);
     }
     return dsm($obj);
   }
+}
+
+function _flag_solt_test_fields($nid = 1) {
+  $solr = apachesolr_get_solr();
+  include_once(drupal_get_path('module', 'apachesolr') .'/apachesolr.index.inc');
+  _flag_solr_dsm(apachesolr_node_to_document(node_load($nid), 'apachesolr_search'));
 }

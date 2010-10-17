@@ -26,7 +26,7 @@ function flag_solr_apachesolr_update_index($document, $node, $namespace) {
       }
     }
   }
-  //_flag_solr_dsm(__doc_to_obj($document));
+  //_flag_solr_dsm($document);
 }
 
 /**
