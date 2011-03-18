@@ -14,14 +14,15 @@ include_once dirname(__FILE__) . '/flag_solr.facets.inc';
  * Here we add Solr fields to the document, based on the flags set on them.
  */
 function flag_solr_apachesolr_update_index($document, $node, $namespace) {
-  $flaggings_by_user = flag_get_content_flags('node', $node->nid);
-  foreach ($flaggings_by_user as $uid => $flaggings_by_fid) {
-    foreach ($flaggings_by_fid as $flagging) {
-      if (($flag = flag_get_flag(NULL, $flagging->fid))) {
-        $document->setField('bs_flag_' . $flag->name . '_flagged', TRUE);
-        // For non-global flags, we also record each flagging user in a Solr multi-valued field.
-        if (!$flag->global) {
-          $document->setMultiValue('im_flag_' . $flag->name . '_uid', $flagging->uid);
+  if (($flaggings_by_user = flag_get_content_flags('node', $node->nid))) {
+    foreach ($flaggings_by_user as $uid => $flaggings_by_fid) {
+      foreach ($flaggings_by_fid as $flagging) {
+        if (($flag = flag_get_flag(NULL, $flagging->fid))) {
+          $document->setField('bs_flag_' . $flag->name . '_flagged', TRUE);
+          // For non-global flags, we also record each flagging user in a Solr multi-valued field.
+          if (!$flag->global) {
+            $document->setMultiValue('im_flag_' . $flag->name . '_uid', $flagging->uid);
+          }
         }
       }
     }
